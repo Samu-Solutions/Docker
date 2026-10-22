@@ -43,3 +43,6 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 This version keeps the required content but makes the brief sound more like a real delivery lead explaining the product to a stakeholder.
+
+cp -r ../LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders/delivery-leadership-package .
+
