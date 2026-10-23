@@ -46,3 +46,27 @@ This version keeps the required content but makes the brief sound more like a re
 
 cp -r ../LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders/delivery-leadership-package .
 
+I am working in the Evergreen Quote API project at ~/evergreen-quote-api-delivery.
+
+When I run `npm run dev`, MongoDB connects successfully, but the server fails with:
+
+Error: listen EADDRINUSE: address already in use :::3000
+
+Please investigate and fix only the port conflict.
+
+Instructions:
+1. Check which process is listening on TCP port 3000.
+2. Determine whether it is an old Node/npm development server from this same project.
+3. If it is clearly an old process from this project, stop that process safely.
+4. Do not kill unrelated services.
+5. Do not modify application source files.
+6. Do not change the configured port.
+7. Do not modify package.json, package-lock.json, .env, or dependencies.
+8. Do not run `npm audit fix`.
+9. After freeing port 3000, verify that the port is available.
+10. Report exactly what process was using the port and what command was used to stop it.
+11. Do not start `npm run dev` automatically; I will start it myself after you finish.
+
+Ask for my confirmation before killing any process if you cannot confidently identify it as an old Node/npm process from this project.
+
+
