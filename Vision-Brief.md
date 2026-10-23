@@ -43,5 +43,19 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 This version keeps the required content but makes the brief sound more like a real delivery lead explaining the product to a stakeholder.
+----------------------------------------
 
-printf "node_modules/\n.env\n" > .gitignore
+find ~/LabFiles -type d -name "wa3873-cap-phase-3-capstone-project-leaders" 2>/dev/null
+
+KIT="/home/labadmin/LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders"
+
+ls "$KIT"
+
+cp -r "$KIT/delivery-leadership-package" .
+
+ls -la delivery-leadership-package
+
+
+
+
+
