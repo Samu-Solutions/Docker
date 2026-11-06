@@ -45,16 +45,25 @@ By the end of the week:
 This version keeps the required content but makes the brief sound more like a real delivery lead explaining the product to a stakeholder.
 ----------------------------------------
 
+find ~/LabFiles -type d -name "wa3873-cap-phase-3-capstone-project-leaders" 2>/dev/null
+
+KIT="/home/labadmin/LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders"
+
+ls "$KIT/data"
+
 mongosh evergreen "$KIT/data/quotes-seed.js"
 
-mongosh evergreen
+__
 
 db.quotes.find()
-
 db.quotes.countDocuments()
-
 db.quotes.find({ type: "auto" })
-
 db.quotes.find({ tags: "renewal" })
+
+exit
+
+
+
+
 
 
