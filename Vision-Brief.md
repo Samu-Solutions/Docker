@@ -56,9 +56,13 @@ mongosh evergreen "$KIT/data/quotes-seed.js"
 __
 
 db.quotes.find()
+
 db.quotes.countDocuments()
+
 db.quotes.find({ type: "auto" })
+
 db.quotes.find({ tags: "renewal" })
+___
 
 exit
 
