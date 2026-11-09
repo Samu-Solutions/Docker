@@ -46,6 +46,8 @@ This version keeps the required content but makes the brief sound more like a re
 ----------------------------------------
 
 KIT="/home/labadmin/LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders"
+--------------
 ls "$KIT/api-routes"
+----------------------
 cp "$KIT/api-routes/routes.js" src/routes.js
 
