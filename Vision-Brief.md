@@ -42,13 +42,19 @@ By the end of the week:
 - The same service works locally, in Docker, and behind the Kubernetes Service.
 - The pull request is merged and the delivery package is complete.
 
-This version keeps the required content but makes the brief sound more like a real delivery lead explaining the product to a stakeholder.
-----------------------------------------
+----------------
+# Risk Register
 
-import { mountGraphQL } from "./graphql.js";
---------------
-mountGraphQL(app);
+| # | Risk | Owner | Likelihood (L/M/H) | Impact (L/M/H) | Mitigation | Trigger to escalate |
+|---|---|---|---|---|---|---|
+| R1 | The API may return a successful response while calculating an incorrect premium. Before the provided fix, the test caught a `$0.35` result where `$400` was expected. | Delivery Lead (coordinate); Engineering team (route owner) | M | H | Run `npm test` after relevant assembly or configuration changes and before requesting merge. Keep the premium-calculation test in the validation loop. | A premium-related test fails, or the API returns an unexpected premium after the fix. |
+| R2 | The database may retain a quote created with the incorrect pre-fix premium, even though the route code has been corrected. | Delivery Lead (coordinate); Engineering team (data owner) | M | M | Record the possibility of stale test/demo data. Use the lab’s seed reset before the cluster demonstration and verify the data used for that demo. | An incorrect quote appears in a demonstration or is mistaken for valid current data. |
+| R3 | Configuration may be inconsistent—for example, the API’s service name or sponsor-approved rates may not match the agreed values. | Delivery Lead; Sponsor for decisions | M | H | Confirm the sponsor’s official name and rate decision, update only the specified configuration values, restart after changing `.env`, and verify a known quote response. | Sponsor values are unknown or disputed, or the health response or premium check does not match the agreed values. |
+| R4 | GraphQL may not be fully mounted or may behave differently from REST, leaving partner access unverified. | Delivery Lead (coordinate); Engineering team (GraphQL owner) | M | M | Confirm the module is wired at the provided markers. Test the list query, lookup query, and create mutation in `/explorer`; confirm a created quote appears through REST. | The explorer is unavailable, a required query or mutation fails, or REST and GraphQL return inconsistent quote data. |
+| R5 | CI status is currently unknown, so a failing workflow or unverified test result could delay the pull request and merge. | Delivery Lead (coordinate); Engineering/CI owner | M | H | Enable the provided workflow, inspect the Actions run and logs, and use green CI as the merge gate. Do not treat a local pass as proof that CI passed. | The CI run is red, does not start, or has not completed before the planned merge. |
+| R6 | An instructor inject may change priorities or consume time needed for the remaining delivery work. | Delivery Lead | M | M | Reprioritize the project board after the inject, record what moved and why, and communicate the next step and any specific help needed. | The inject blocks a critical path item or the revised plan threatens the delivery goal. |
+| R7 | Working solo creates a capacity and review risk: one person must assemble, verify, document, and communicate the work. | Delivery Lead; Sponsor for priority decisions | M | M | Keep scope to the provided assembly steps, prioritize the required path, and raise tradeoffs early rather than adding optional work. | A required milestone is at risk, or the remaining work cannot fit the available time without a scope decision. |
 
-find ~ -type d -name "wa3873-cap-phase-3-capstone-project-leaders" 2>/dev/null
+## How I’ll use this register
 
-
+I’ll review the risks during daily planning and again after each instructor inject. I’ll update likelihood, mitigation, and escalation triggers as the delivery progresses, and use the register to raise decisions or blockers with the sponsor rather than allowing them to surface at the final review.
