@@ -43,30 +43,27 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-# Decision Memo: Keep Renters Coverage Out of This Week’s Delivery
+# Stakeholder Status Update: Evergreen Quote
 
-**Date:** Tuesday, November 9, 2026  
-**Author:** Samuel Ogunyemi  
-**Decision area:** Scope tradeoff after Inject #1
+**To:** Priya Ramanathan, Project Sponsor  
+**From:** Samuel Ogunyemi  
+**Date:** November 9, 2026
 
-## Context
+## What shipped today
 
-A partner aggregator asked us to make renters coverage quotable through the API by Thursday. It sounds like one more dropdown choice, but our morning checks showed that the API rejects unsupported quote types. Supporting renters would mean more than changing the dropdown: we would need an approved rate and updates to validation, seed data, tests, GraphQL, and the website. Adding that work now could put the agreed delivery goal at risk.
+- The REST quote routes are assembled. I applied the provided premium-calculation fix, and all seven local tests pass.
+- I checked the REST endpoints for listing, retrieving, creating, and rejecting invalid quotes.
 
-## Options considered
+## What slipped (and why)
 
-1. **Add renters coverage this week.** This could meet the partner’s request sooner. But the work crosses several parts of the product, the renters rate has not been approved, and we would need to reduce or delay other planned work to make room.
+- Renters coverage is deferred to a follow-up delivery. It is more than a dropdown change: it needs an approved rate and coordinated updates across validation, premium calculation, seed data, tests, GraphQL, and the website.
+- GraphQL wiring and verification are still in progress.
 
-2. **Keep this week’s scope and plan renters for a later delivery.** This protects the current goal and gives us time to agree on the rate and plan the related changes. The tradeoff is that the partner will not be able to quote renters coverage this Thursday.
+## What's next (tomorrow)
 
-## Recommendation
+- Finish wiring and verifying GraphQL, then continue with the container and CI work.
+- Check the CI result before treating the delivery as ready to merge.
 
-I recommend keeping renters coverage out of this week’s delivery and recording it as a prioritized follow-up. We should finish and verify the agreed API delivery first, then schedule renters once the sponsor confirms the rate and the team can plan the full set of changes.
+## What I need from you
 
-## Why
-
-A quote is only useful if its premium is approved and consistent across the API, GraphQL, and customer-facing site. Adding an unapproved rate to meet a date could give the partner an answer that looks complete but is not trustworthy. Protecting quote accuracy and the delivery goal is more important than treating this as a small dropdown change.
-
-## What would change my mind
-
-I would reconsider if the sponsor approves a renters rate and confirms by Wednesday morning which planned work should move to make room—without compromising the required tests, CI, or Thursday delivery review.
+Please confirm that renters coverage should be planned for a follow-up delivery, and identify when you’d like to review the proposed priority and approve a renters rate. I recommend proceeding this week with the current `node:22-alpine` base image: the finding is moderate, the API is not internet-exposed this week, and the patched tag is expected next week. We’ll document the risk and revisit the patched tag when it is available.
