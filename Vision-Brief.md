@@ -45,16 +45,4 @@ By the end of the week:
 This version keeps the required content but makes the brief sound more like a real delivery lead explaining the product to a stakeholder.
 ----------------------------------------
 
-curl -X POST http://localhost:3000/api/quote \
-  -H "Content-Type: application/json" \
-  -d '{"type":"auto","age":35,"coverageAmount":50000}'
----------
-curl -X POST http://localhost:3000/api/quote \
-  -H "Content-Type: application/json" \
-  -d '{"type":"auto","age":35,"coverageAmount":50000}'
--------
-curl -X POST http://localhost:3000/api/quote \
-  -H "Content-Type: application/json" \
-  -d '{"type":"auto","age":5,"coverageAmount":50000}'
-  ------
-curl http://localhost:3000/api/quotes/does-not-exist
+cp "$KIT/graphql/graphql.js" src/graphql.js
