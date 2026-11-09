@@ -72,5 +72,24 @@ cp "PATH_RETURNED_BY_FIND" .
 --------
 cat Dockerfile
 
+--------------
+--------------
+# Keep the image small and the build honest: only the app goes in.
+node_modules
+npm-debug.log
+.git
+.gitignore
+Dockerfile
+.dockerignore
+# Configuration is injected at run time (--env-file), never baked into the image.
+.env
+# Everything below is delivery material, not application code.
+*.md
+test
+k8s
+site
+deploy
+delivery-leadership-package
+.github
 
 
