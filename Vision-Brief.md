@@ -58,11 +58,19 @@ curl http://localhost:3000/
 curl http://localhost:3000/api/quotes
 ---------------
 docker build -t evergreen-quote-api:1.0 .
-------------
-
+----------
 ls -la "$KIT/containerize"
 ----
 cp "$KIT/containerize/.dockerignore" .
 ---
 printf '%s\n' "$KIT"
+------------
+-------------
+find "$KIT" -type f -name '.dockerignore' -print
+-----------
+cp "PATH_RETURNED_BY_FIND" .
+--------
+cat Dockerfile
+
+
 
