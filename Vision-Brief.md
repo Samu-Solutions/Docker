@@ -60,4 +60,9 @@ curl http://localhost:3000/api/quotes
 docker build -t evergreen-quote-api:1.0 .
 ------------
 
+ls -la "$KIT/containerize"
+----
 cp "$KIT/containerize/.dockerignore" .
+---
+printf '%s\n' "$KIT"
+
