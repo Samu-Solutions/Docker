@@ -58,3 +58,6 @@ curl http://localhost:3000/
 curl http://localhost:3000/api/quotes
 ---------------
 docker build -t evergreen-quote-api:1.0 .
+------------
+
+cp "$KIT/containerize/.dockerignore" .
