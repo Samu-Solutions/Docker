@@ -43,10 +43,6 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-cat deploy/infrastructure.md
-cat deploy/bucket-policy.json
-cat deploy/iam-policy.json
-bash -n deploy/deploy-to-s3.sh
-
+Draft a test for test/api.test.mjs that sends a POST request to /api/quote without coverageAmount and verifies the API returns HTTP 400. Follow the existing test style and use the test database setup already in this file. Show me the proposed test only—do not edit the file.
 
 
