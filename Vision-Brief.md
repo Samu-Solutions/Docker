@@ -43,6 +43,6 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-Draft a test for test/api.test.mjs that sends a POST request to /api/quote without coverageAmount and verifies the API returns HTTP 400. Follow the existing test style and use the test database setup already in this file. Show me the proposed test only—do not edit the file.
+## Copilot test review
 
-
+Copilot suggested a test for a quote request that leaves out `coverageAmount`. I reviewed the suggestion, added it to the existing test file, and ran the suite. All eight tests passed, including the new check that the API returns a 400 response. The suggestion fit the existing test pattern and checked a clear outcome. I’d keep this test, while still confirming that the expected response matches the product rules. AI output should not be trusted just because it looks reasonable: the test run gave me evidence that the test works with this service, and CI will run the suite again when changes are pushed.
