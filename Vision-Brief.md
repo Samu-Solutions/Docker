@@ -43,53 +43,15 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-cp "$KIT/containerize/Dockerfile" .
-cp "$KIT/containerize/.dockerignore" .
------------
-cat Dockerfile
----------
-docker build -t evergreen-quote-api:1.0 .
------------
-docker run --rm --network host --env-file .env evergreen-quote-api:1.0
+KIT="/home/labadmin/LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders"
 ----------
-docker run --rm --network host --env-file .env evergreen-quote-api:1.0
----------
-curl http://localhost:3000/
-curl http://localhost:3000/api/quotes
----------------
-docker build -t evergreen-quote-api:1.0 .
-----------
-ls -la "$KIT/containerize"
-----
-cp "$KIT/containerize/.dockerignore" .
----
-printf '%s\n' "$KIT"
-------------
--------------
-find "$KIT" -type f -name '.dockerignore' -print
+ls "$KIT/workflows"
 -----------
-cp "PATH_RETURNED_BY_FIND" .
+mkdir -p .github/workflows
+cp "$KIT/workflows/ci.yml" .github/workflows/ci.yml
 --------
-cat Dockerfile
-
+ls -l .github/workflows/ci.yml
 --------------
---------------
-# Keep the image small and the build honest: only the app goes in.
-node_modules
-npm-debug.log
-.git
-.gitignore
-Dockerfile
-.dockerignore
-# Configuration is injected at run time (--env-file), never baked into the image.
-.env
-# Everything below is delivery material, not application code.
-*.md
-test
-k8s
-site
-deploy
-delivery-leadership-package
-.github
+find ~/LabFiles -type d -name "wa3873-cap-phase-3-capstone-project-leaders" 2>/dev/null
 
 
