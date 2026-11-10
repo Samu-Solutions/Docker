@@ -43,15 +43,10 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-KIT="/home/labadmin/LabFiles/WA3873-Phase3-Project/LabFiles/wa3873-cap-phase-3-capstone-project-leaders"
-----------
-ls "$KIT/workflows"
------------
-mkdir -p .github/workflows
-cp "$KIT/workflows/ci.yml" .github/workflows/ci.yml
---------
-ls -l .github/workflows/ci.yml
---------------
-find ~/LabFiles -type d -name "wa3873-cap-phase-3-capstone-project-leaders" 2>/dev/null
+cat deploy/infrastructure.md
+cat deploy/bucket-policy.json
+cat deploy/iam-policy.json
+bash -n deploy/deploy-to-s3.sh
+
 
 
