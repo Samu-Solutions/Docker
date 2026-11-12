@@ -43,6 +43,27 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-kind load docker-image evergreen-quote-api:1.0 --name evergreen
-kubectl delete pod evergreen-quote-api-68fdcbc9-8s9dc
+I’m working in the Evergreen Quote API capstone repository. In my local kind cluster named `evergreen`, one of the three API pods is stuck in `ErrImagePull` / `ImagePullBackOff`. The other API pods and MongoDB are running.
 
+The expected image is `evergreen-quote-api:1.0`. I ran:
+`kind load docker-image evergreen-quote-api:1.0 --name evergreen`
+but the replacement pod still cannot start.
+
+Please investigate this Kubernetes image-pull issue.
+
+First:
+1. Read the current pod status and events for the failing pod.
+2. Inspect `k8s/deployment.yaml` to confirm the image name, tag, and `imagePullPolicy`.
+3. Confirm the local Docker image exists and identify whether the kind node has the same image.
+4. Explain the likely cause and the smallest safe fix.
+
+Safety constraints:
+- Do not edit `src/`, `Dockerfile`, `.env`, or `k8s/deployment.yaml`.
+- Do not delete or recreate the cluster.
+- Do not delete running pods or change replica counts.
+- Do not pull a different image or change the required image tag.
+- Do not run `kubectl apply`, `kind load`, or other state-changing commands until you show me the proposed command and I approve it.
+- Do not expose secrets or print `.env`.
+- Do not run `npm audit fix`.
+
+If you cannot confidently identify the cause from read-only checks, stop and report the exact command output you need. Do not guess or make changes.
