@@ -43,6 +43,6 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-kubectl get deployment evergreen-quote-api -o wide
-kubectl describe pod evergreen-quote-api-68fdcbc9-8s9dc
+kind load docker-image evergreen-quote-api:1.0 --name evergreen
+kubectl delete pod evergreen-quote-api-68fdcbc9-8s9dc
 
