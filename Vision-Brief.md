@@ -43,21 +43,6 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-I’m working on the Evergreen Quote API capstone. A POST request through my local Kubernetes Service succeeded, but for a home quote with age 45 and coverageAmount 200000, the API returned monthlyPremium 2400. The lab expects 2700 with the sponsor-approved home rate of 135.
+grep -n -A5 'BASE_RATES' src/premium.js
+grep -n 'image:' k8s/deployment.yaml
 
-Please investigate this mismatch using read-only checks first.
-
-1. Check `src/premium.js` and report the configured home rate.
-2. Check which image tag the Kubernetes Deployment uses.
-3. Check whether the local Docker image `evergreen-quote-api:1.0` was built after the current source/configuration.
-4. Explain why the cluster might return 2400 instead of 2700.
-5. Recommend the smallest safe next steps.
-
-Do not edit files or change code.
-Do not change `.env`, `src/premium.js`, `Dockerfile`, Kubernetes manifests, or the image tag.
-Do not delete any existing quotes or pods.
-Do not run `kubectl apply`, restart deployments, rebuild/load images, or make other state-changing changes until you show me the exact commands and I approve them.
-Do not run `npm audit fix`.
-Do not print secrets or the contents of `.env`.
-
-Report your findings and wait for my approval before making any changes.
