@@ -43,27 +43,21 @@ By the end of the week:
 - The pull request is merged and the delivery package is complete.
 
 ----------------
-I’m working in the Evergreen Quote API capstone repository. In my local kind cluster named `evergreen`, one of the three API pods is stuck in `ErrImagePull` / `ImagePullBackOff`. The other API pods and MongoDB are running.
+I’m working on the Evergreen Quote API capstone. A POST request through my local Kubernetes Service succeeded, but for a home quote with age 45 and coverageAmount 200000, the API returned monthlyPremium 2400. The lab expects 2700 with the sponsor-approved home rate of 135.
 
-The expected image is `evergreen-quote-api:1.0`. I ran:
-`kind load docker-image evergreen-quote-api:1.0 --name evergreen`
-but the replacement pod still cannot start.
+Please investigate this mismatch using read-only checks first.
 
-Please investigate this Kubernetes image-pull issue.
+1. Check `src/premium.js` and report the configured home rate.
+2. Check which image tag the Kubernetes Deployment uses.
+3. Check whether the local Docker image `evergreen-quote-api:1.0` was built after the current source/configuration.
+4. Explain why the cluster might return 2400 instead of 2700.
+5. Recommend the smallest safe next steps.
 
-First:
-1. Read the current pod status and events for the failing pod.
-2. Inspect `k8s/deployment.yaml` to confirm the image name, tag, and `imagePullPolicy`.
-3. Confirm the local Docker image exists and identify whether the kind node has the same image.
-4. Explain the likely cause and the smallest safe fix.
+Do not edit files or change code.
+Do not change `.env`, `src/premium.js`, `Dockerfile`, Kubernetes manifests, or the image tag.
+Do not delete any existing quotes or pods.
+Do not run `kubectl apply`, restart deployments, rebuild/load images, or make other state-changing changes until you show me the exact commands and I approve them.
+Do not run `npm audit fix`.
+Do not print secrets or the contents of `.env`.
 
-Safety constraints:
-- Do not edit `src/`, `Dockerfile`, `.env`, or `k8s/deployment.yaml`.
-- Do not delete or recreate the cluster.
-- Do not delete running pods or change replica counts.
-- Do not pull a different image or change the required image tag.
-- Do not run `kubectl apply`, `kind load`, or other state-changing commands until you show me the proposed command and I approve it.
-- Do not expose secrets or print `.env`.
-- Do not run `npm audit fix`.
-
-If you cannot confidently identify the cause from read-only checks, stop and report the exact command output you need. Do not guess or make changes.
+Report your findings and wait for my approval before making any changes.
