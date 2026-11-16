@@ -38,8 +38,6 @@ Today, the quote page can estimate a premium, but it forgets the customer’s qu
 - The five-minute showcase can demonstrate the journey from landing page to saved quote on the local cluster.
 
 - ____________________________
-find ~/Labfiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders \
-  $$ -name '.env' -o -name '.env.example' -o -name '*.env.example' $$ -print
-------
-find .. -maxdepth 3 -name '*env*' -print
-
+find "$HOME/Labfiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders" -type f $$ -name '.env' -o -name '.env.example' $$ -print
+-------------
+ls -la "$HOME/Labfiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders/starter/api"
