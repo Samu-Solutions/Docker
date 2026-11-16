@@ -38,20 +38,8 @@ Today, the quote page can estimate a premium, but it forgets the customer’s qu
 - The five-minute showcase can demonstrate the journey from landing page to saved quote on the local cluster.
 
 - ____________________________
-cp -r ~/Labfiles/wa3870-cap-final-review-and-capstone-project-leaders/starter ~/evergreen-quote-launch
----
-cd ~/evergreen-quote-launch
-----
-cp -r ~/Labfiles/wa3870-cap-final-review-and-capstone-project-leaders/delivery-leadership-package .
-----
-git init -b main
------
-git add .
------
-git commit -m "Initial commit: Evergreen Quote launch starter"
+find ~/Labfiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders \
+  $$ -name '.env' -o -name '.env.example' -o -name '*.env.example' $$ -print
 ------
-gh repo create evergreen-quote-launch --private --source=. --remote=origin --push
------
-git checkout -b delivery/lead
------
+find .. -maxdepth 3 -name '*env*' -print
 
