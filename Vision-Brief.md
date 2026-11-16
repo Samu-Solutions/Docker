@@ -39,11 +39,19 @@ Today, the quote page can estimate a premium, but it forgets the customer’s qu
 
 - ____________________________
 cp -r ~/Labfiles/wa3870-cap-final-review-and-capstone-project-leaders/starter ~/evergreen-quote-launch
+---
 cd ~/evergreen-quote-launch
+----
 cp -r ~/Labfiles/wa3870-cap-final-review-and-capstone-project-leaders/delivery-leadership-package .
+----
 git init -b main
+-----
 git add .
+-----
 git commit -m "Initial commit: Evergreen Quote launch starter"
+------
 gh repo create evergreen-quote-launch --private --source=. --remote=origin --push
+-----
 git checkout -b delivery/lead
+-----
 
