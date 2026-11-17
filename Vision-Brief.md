@@ -1,27 +1,24 @@
-# Decision Memo: One premium customers can trust
+# Stakeholder Status Update: Evergreen Quote
 
-**Date:** November 17, 2026  
-**Author:** Samuel Ogunyemi  
-**Decision area:** Day 2 — estimate and saved premium
+**To:** Priya Ramanathan, Project Sponsor  
+**From:** Samuel Ogunyemi  
+**Date:** November 17, 2026
 
-## Context
+## What shipped today
 
-When the app first connected to the quote service, the same customer details produced two different prices. The app showed $425 for an auto quote, while the service saved it at $450 per month. The difference came from two rate tables that had drifted apart while the app and service were being built separately.
+- Connected the quote app to the API, retired the bundled quote data, and verified that a saved quote persists after reload.
+- Fixed the quote-ID mapping caught by the client type-check, aligned the client rates with the API, and mounted GraphQL. The GraphQL mutation returned a new quote with a monthly premium of $700.
 
-## Options considered
+## What changed (and why)
 
-1. **Keep the two rate tables as they were.** The app would remain quick, but customers could see one price and save another. That would undermine trust.
-2. **Align the app’s rates with the service.** Customers would still get a quick estimate, and the saved quote would agree with it. The rates would still exist in two places, so they could drift again later.
-3. **Make every estimate wait for the service.** This would give the app one source for pricing, but it would add a network dependency to every estimate and was beyond the agreed scope for this launch.
+- I’ll update the landing-page hero and banner to lead with life coverage once we confirm the final wording. I’m not changing the quote form’s default from auto myself: that behavior lives in the client team’s application code, so I’ve routed the request to **[client owner/team]** for review against Friday’s launch. If it can’t be reviewed and verified in time, we’ll keep auto as the launch default.
+- I recommend deferring renters until after launch. It crosses both the client’s coverage-type contract and the API’s database validation, which adds avoidable risk this late in the week.
 
-## Recommendation
+## What’s next
 
-Align the app’s rates with the service’s standardized rates: auto 90, home 135, and life 70. Keep the instant estimate for this launch, and treat the service as the source of truth for the premium saved to the database.
+- Complete and verify the approved life-first landing-page content; continue the container, local-cluster, and CI work.
+- Friday’s demo will run on the local `evergreen` kind cluster. I’ll run `kubectl port-forward svc/evergreen-quote-api 3000:80` and show the wired client at `http://localhost:5173`, including a quote saved to and reloaded from the cluster database. The demo does not depend on a shared cloud environment.
 
-## Why
+## What I need from you
 
-A fast estimate is useful only if the customer can trust the amount they see. Matching the estimate to the saved quote avoids an unpleasant surprise at the moment the customer chooses to keep their quote.
-
-## What would change my mind
-
-If the two rate tables drift again, or a later product decision requires rates to change frequently, I would recommend moving rate ownership to one centrally managed source before expanding the product.
+Please confirm the final life-first hero and banner wording by **10:30 Wednesday** so I can apply and verify it.
