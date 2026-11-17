@@ -1,15 +1,27 @@
-# Risk Register
+# Decision Memo: One premium customers can trust
 
-| # | Risk | Owner | Likelihood (L/M/H) | Impact (L/M/H) | Mitigation | Trigger to escalate |
-|---|---|---|---|---|---|---|
-| R1 | The client and API may disagree about the shape of a quote. The app could appear to work while missing or misreading a field at the seam. | Delivery Lead + client/API owners | M | H | Use the provided API client and types; run the client type-check after wiring; verify the six API quotes appear in the app and that a saved quote survives reload. | Type-check is still failing after the kit’s one-line fix, or the app cannot load or save a quote by the end of the wiring block. |
-| R2 | The estimate and saved premium could show different amounts because the client and API started with different rate tables. That would make the answer hard for a shopper to trust. | Client owner, with API owner confirming the source of truth | M | H | Keep the API as the source of truth; align the client rates to auto 90, home 135, and life 70; compare the estimate and saved result using the same inputs. | The estimate and saved premium still differ after the rate change, or the API rates cannot be confirmed before the demo. |
-| R3 | Once wired, the customer-facing app depends on the API and its database being available. The cluster has a separate, newly created database from the VM’s database. | Platform/API owner | M | H | Verify the health endpoint and quote retrieval in each environment; save and reload a quote in the environment planned for the demo; make clear which database the demo is using. | The API health check fails, the quote cannot be saved or retrieved, or the demo environment is unclear on Thursday’s rehearsal. |
-| R4 | Launch configuration could be incomplete or inconsistent: the app title, landing banner, links, or rate values might still be placeholders or stale. | Delivery Lead + landing/client owners | M | M | Apply the sponsor’s exact title and banner wording; verify both landing-page links open the app; check the launch rates in the browser. | Any placeholder remains, a link goes to the wrong location, or sponsor wording has not been confirmed before the production preview. |
-| R5 | Container or Kubernetes configuration could differ from the working local setup. A successful VM test alone does not prove the cluster demo is ready. | Platform owner | M | H | Use the provided image and manifests; run the documented dry-run; check that three API pods and MongoDB are running; test a quote save and reload through the cluster. | The API image cannot be loaded, the pods do not become ready, or a quote fails to persist in the cluster database. |
-| R6 | A red CI job could block a safe merge, even if a manual demo appears to work. | Delivery Lead + owners of the failing job | M | H | Enable the provided two-job workflow early; review both job results on the branch and again on the PR; route failures to the team that owns the failing check. | Either CI job is red at the PR review or on the intended merge commit. |
-| R7 | The five-minute showcase may lose managers if it assumes they know the program or focuses on implementation details instead of the customer outcome. | Delivery Lead | M | M | Rehearse to five minutes; show the path from landing page to saved quote; explain results in customer language; keep screenshots ready as a fallback. | A rehearsal runs over time, the live demo is unreliable, or the story is not understandable to someone unfamiliar with the program. |
+**Date:** November 17, 2026  
+**Author:** Samuel Ogunyemi  
+**Decision area:** Day 2 — estimate and saved premium
 
-## How I’ll use this register
+## Context
 
-I’ll review these risks at the daily wrap and again before the Thursday PR and Friday demo. If a trigger occurs, I’ll name the affected environment, notify the sponsor, and route the next step to the team that owns it. I’ll update likelihood and mitigation as we learn more, rather than treating the register as a one-time checklist.
+When the app first connected to the quote service, the same customer details produced two different prices. The app showed $425 for an auto quote, while the service saved it at $450 per month. The difference came from two rate tables that had drifted apart while the app and service were being built separately.
+
+## Options considered
+
+1. **Keep the two rate tables as they were.** The app would remain quick, but customers could see one price and save another. That would undermine trust.
+2. **Align the app’s rates with the service.** Customers would still get a quick estimate, and the saved quote would agree with it. The rates would still exist in two places, so they could drift again later.
+3. **Make every estimate wait for the service.** This would give the app one source for pricing, but it would add a network dependency to every estimate and was beyond the agreed scope for this launch.
+
+## Recommendation
+
+Align the app’s rates with the service’s standardized rates: auto 90, home 135, and life 70. Keep the instant estimate for this launch, and treat the service as the source of truth for the premium saved to the database.
+
+## Why
+
+A fast estimate is useful only if the customer can trust the amount they see. Matching the estimate to the saved quote avoids an unpleasant surprise at the moment the customer chooses to keep their quote.
+
+## What would change my mind
+
+If the two rate tables drift again, or a later product decision requires rates to change frequently, I would recommend moving rate ownership to one centrally managed source before expanding the product.
