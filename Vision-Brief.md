@@ -17,5 +17,6 @@ ls "$HOME/Labfiles/WA3870-FinalProject/LabFiles"
 -----------
 ------------
 ---------------
-find "$HOME/Labfiles" -type f -path '*/api-client/vite.config.ts' -print
+ls "$HOME/LabFiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders/api-client"
+
 
