@@ -1,5 +1,3 @@
-git rm client/src/sampleQuotes.ts client/public/quotes.json
------------
-cd ~/evergreen-quote-launch/client
---------
-npm run type-check
+cd ~/evergreen-quote-launch
+KIT="$HOME/LabFiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders"
+cp "$KIT/graphql/graphql.js" api/src/graphql.js
