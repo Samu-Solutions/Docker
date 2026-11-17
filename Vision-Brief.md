@@ -1,22 +1,3 @@
-KIT="$HOME/Labfiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders"
-----------
-cp "$KIT/api-client/vite.config.ts" client/vite.config.ts
--------------
-cp "$KIT/api-client/types.ts" client/src/types.ts
-----------
-cp "$KIT/api-client/api.ts" client/src/api.ts
------------
-cp "$KIT/api-client/QuotesContext.tsx" client/src/context/QuotesContext.tsx
-----------
-cp "$KIT/api-client/QuoteForm.tsx" client/src/components/QuoteForm.tsx
------------------
------------------
-pwd
--------------
-ls "$HOME/Labfiles/WA3870-FinalProject/LabFiles"
------------
-------------
----------------
-ls "$HOME/LabFiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders/api-client"
-
-
+cd ~/evergreen-quote-launch
+ls client/vite.config.ts client/src/types.ts client/src/api.ts \
+   client/src/context/QuotesContext.tsx client/src/components/QuoteForm.tsx
