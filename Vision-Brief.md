@@ -14,3 +14,8 @@ cp "$KIT/api-client/QuoteForm.tsx" client/src/components/QuoteForm.tsx
 pwd
 -------------
 ls "$HOME/Labfiles/WA3870-FinalProject/LabFiles"
+-----------
+------------
+---------------
+find "$HOME/Labfiles" -type f -path '*/api-client/vite.config.ts' -print
+
