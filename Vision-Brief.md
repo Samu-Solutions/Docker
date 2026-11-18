@@ -54,5 +54,18 @@ KIT="$HOME/LabFiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-cap
 --------------
 ls -la "$KIT/docker"
 
-
+-------------
+-----------
+# Keep the image small and the build honest: only the API goes in.
+# (The build context is the api/ folder.)
+node_modules
+npm-debug.log
+.git
+.gitignore
+Dockerfile
+.dockerignore
+# Configuration is injected at run time (--env-file), never baked into the image.
+.env
+*.md
+test
 
