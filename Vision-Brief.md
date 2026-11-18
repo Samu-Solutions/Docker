@@ -48,5 +48,11 @@ git push
 cd ~/evergreen-quote-launch
 ---------
 git status
+----------
+-------------
+KIT="$HOME/LabFiles/WA3870-FinalProject/LabFiles/wa3870-cap-final-review-and-capstone-project-leaders"
+--------------
+ls -la "$KIT/docker"
+
 
 
