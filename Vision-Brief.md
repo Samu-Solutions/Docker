@@ -1,46 +1,72 @@
-## Slide 1: Delivery goal & did we hit it? (45 seconds)
+# Program Showcase: Evergreen Quote
 
-**Goal:** By Thursday’s end, the Evergreen Quote app loads and saves quotes through the API, shows estimates that match saved premiums, runs with its containerized API on the local Kubernetes cluster, and is merged to `main` through a reviewed pull request with both CI jobs green.
+**Presenter:** Samuel Ogunyemi  
+**Audience:** Managers, peers, and project sponsor  
+**Target:** 5 minutes, followed by 3 minutes of questions
 
-**Result: Yes.** We connected the landing page, quote app, and persistent API; verified the customer quote flow; demonstrated the containerized service on the local cluster; and merged the reviewed launch with both CI jobs green.
+## Slide 1: Delivery goal & did we hit it?
 
-**Speaker note:** “A shopper can get a quote, save it, and find it again after reloading. We brought three previously separate pieces together and verified the result.”
+- **Goal:** By Thursday’s end, the wired Evergreen Quote app saves quotes that survive a reload, shows an estimate that agrees with the saved premium, runs with its containerized API on the local Kubernetes cluster, and is merged to `main` through a reviewed pull request with both CI jobs green.
+- **Hit?** ☒ Yes  ☐ Partially  ☐ No
+- **Why:** The client and API were connected, the quote flow was verified, the API was containerized and demonstrated on local Kubernetes, and the launch was merged after review with both CI jobs green.
 
-## Slide 2: What shipped (60 seconds)
+**Say:** “A shopper can get a quote, save it, and find it again after reloading. We brought three previously separate pieces together and verified the result.”
 
-- The landing page directs visitors into the configured quote app.
-- The app loads recent quotes from the API rather than bundled sample data.
-- A saved quote persists after reload, and the estimate and saved premium agree at the launch rates.
-- The API is packaged as `evergreen-quote-api:2.0` and demonstrated with three replicas and MongoDB on the local `kind` cluster.
-- GraphQL is mounted, and a quote-creation mutation was demonstrated.
-- Both CI jobs passed: API tests and client type-check/build.
+## Slide 2: What shipped
 
-**Evidence to show:**
-- Screenshot of the wired client with database-backed quotes.
-- Merged pull request: [insert PR URL].
-- Green CI run on the merge commit: [insert Actions run URL].
-- Optional EKS screenshot: the AWS console showed three API replicas and the MongoDB deployment ready. This confirms workload readiness at the time of capture; it does not prove the public quote request or cloud save-and-reload flow.
+- **Customer journey:** The landing page links to the quote app; the app loads database-backed quotes, estimates a premium, and saves a quote that remains after reload.
+- **Platform:** The API was packaged as `evergreen-quote-api:2.0` and demonstrated with three API replicas and MongoDB on the local `kind` cluster.
+- **Partner path:** GraphQL was mounted and a quote-creation mutation was demonstrated.
+- **Quality signal:** Both CI jobs passed—API tests and client type-check/build.
+- **Merged PR:** [insert PR URL]
+- **Green CI run:** [insert Actions run URL]
+- **App evidence:** [insert screenshot or demo reference]
 
-**Speaker note:** “The same client continued to work as the API moved from the development server to a container and then to Kubernetes. Friday’s demonstration uses the local cluster, so it does not depend on AWS.”
+**Optional cloud evidence:** The EKS screenshots show three API replicas and one MongoDB deployment ready at the time of capture. They do not prove that a quote was saved through the public EKS endpoint. Friday’s demo ran on the local cluster.
 
-## Slide 4: Risks, incident, and response (60 seconds)
+**Say:** “The same client worked as the API moved from development to a container and then to Kubernetes. Our demo used the local cluster, so it didn’t depend on cloud access.”
 
-**Top risk tracked:** The customer app and API had never crossed a real network boundary. Their quote contracts could disagree, or the demo could appear fine until a field or saved value failed.
+## Slide 3: Two key decisions
 
-**How we reduced it:** The client type-check caught an ID-mapping defect at the seam. We applied the supplied fix, aligned the client rates to the API, and verified API-backed retrieval and persistence.
+### Decision 1: Align the client estimate to the API’s rates
 
-**Wednesday incident:** The incident was in the **shared demo environment**, not our local cluster. The supplied capture showed three restarting API pods, a healthy MongoDB pod, connections being attempted at `127.0.0.1`, and the deployment using `MONGO_URI` while the application expects `MONGODB_URI`. The platform team owns that environment, so we routed the evidence and recovery request to them instead of changing their cluster.
+- **Decision:** Keep the immediate client-side estimate, but align its rates to the API’s standardized rates: auto 90, home 135, and life 70. The API remains the source of truth for saved quotes.
+- **Why it mattered:** Before alignment, the estimate and saved quote could show different premiums for the same customer. Aligning the values let the customer see one consistent answer without expanding launch scope.
 
-**Decision impact:** Our local `kind` cluster and CI were separate, verified evidence. Friday’s demo was planned on local `kind`, so the shared-environment incident did not gate our merge or change the demo plan.
+### Decision 2: Protect launch scope while responding to the life-first request
 
-**Speaker note:** “We named the environment that was affected, sent the issue to its owner, and based our launch decision on the environment we would actually use.”
+- **Decision:** Approve the life-first landing-page content; route the request to change the quote form’s default to the client team for review; defer renters until after launch.
+- **Why it mattered:** The landing-page wording is content the Delivery Lead can approve. The form default is application behavior owned by the client team, and renters crosses both client and API validation. Separating those decisions avoided slipping unreviewed code and added scope into launch week.
 
-## Slide 5: The program journey and what I take back (55 seconds)
+**Say:** “We didn’t treat every request as the same kind of change. We approved the content, routed the code request to its owner, and deferred the cross-stack feature to protect the launch.”
 
-**The journey:** A static page that made a promise → a typed React app that estimated instantly → an API and database that remembered quotes → one wired, containerized product demonstrated on Kubernetes and checked by CI.
+## Slide 4: Risks & injects
 
-**What I’ll take back to work:** I’ll make ownership, environment, and evidence explicit before acting—especially during incidents. I’ll route work to the team that owns it, state what I’ve verified, and give stakeholders a clear next update.
+- **Top risk tracked:** The client and API had never crossed a real network boundary. Their contracts or premium values could disagree, making the demo look successful while the customer saw incorrect or missing information.
+- **Mitigation:** The client type-check caught the ID-mapping defect; we applied the supplied fix, aligned the rates, and verified API-backed quote retrieval and persistence.
+- **Inject #1 — launch pivot:** We separated the life-first landing content from the form-default code request, routed the form change to its owner, deferred renters, and documented the local demo plan.
+- **Inject #2 — incident:** The incident capture was from the **shared demo environment**. Its API pods were restarting while MongoDB was healthy; the deployment showed `MONGO_URI` where the application expects `MONGODB_URI`. We routed it to the platform team rather than changing an environment we don’t own.
+- **Go/no-go:** GO for the Friday demo on our verified local `kind` cluster, supported by [link to green CI run] and [local-cluster evidence]. The shared-cluster issue was tracked with its platform owner and did not by itself block our merge or local demo.
 
-**What I’d do differently next time:** Confirm environment configuration and the demo path earlier, then reserve rehearsal time to verify the exact database and fallback—not just that the app opens.
+**Say:** “We kept the environments distinct: the shared demo cluster had an incident, while our own cluster and CI were the evidence for the Friday plan.”
 
-**Closing line:** “The program taught us to build the parts. This launch taught me to bring them together, prove the customer path, and lead the work through to a clear decision.”
+## Slide 5: The journey in one slide, and what I take back to work
+
+**The journey:**  
+Static page → live, typed React app → API with a database → wired, containerized product running on an orchestrated platform.
+
+**What I take back to work:**  
+“I’ll make ownership, environment, and evidence explicit before acting—especially during an incident. I’ll route work to the right owner and give stakeholders a clear next update.”
+
+**One thing I’d do differently next round:**  
+Confirm environment configuration and the exact demo path earlier, and reserve rehearsal time to verify the database and fallback—not just that the app opens.
+
+**Closing:**  
+“The program taught us to build the parts. This launch taught me to connect them, prove the customer path, and lead the work through to a clear decision.”
+
+## Q&A prep: likely questions
+
+- **Why defer renters?** It was already deferred and would now touch both client-side and API validation. It wasn’t necessary for the agreed launch outcome, and taking it on late would increase testing and coordination risk.
+- **Why not simply change the form default to life?** It was an application-code change owned by the client team, so it needed their review rather than an unreviewed launch-week edit.
+- **Does green CI prove the whole customer journey?** No. CI checked the API tests and client type-check/build. We separately verified the integrated app against the local cluster.
+- **Why didn’t the shared-cluster incident stop Friday’s demo?** It affected a different environment. Friday’s plan ran on our own local `kind` cluster, which we verified separately.
