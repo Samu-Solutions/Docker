@@ -1,5 +1,7 @@
-cd ~/evergreen-quote-launch
------------
-gh pr create --base main --head delivery/lead \
-  --title "Evergreen Quote launch: client wired to the API, containerized, cluster-demonstrated" \
-  --body "See delivery-leadership-package/ for the full delivery output."
+aws sts get-caller-identity
+----------
+aws ecr describe-repositories \
+  --repository-names "$REPO" \
+  --region us-east-1 \
+  --query 'repositories[0].repositoryUri' \
+  --output text
